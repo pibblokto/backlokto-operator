@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: leader-elector
+spec:
+  containers:
+  - name: leader-elector
+    image: gcr.io/google_containers/leader-elector:0.4
+    args:
+    - "--election"
+    - "backlokto"

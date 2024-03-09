@@ -1,0 +1,16 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: leader-elector
+spec:
+  serviceAccountName: backlokto-operator-service-account
+  containers:
+  - name: leader-elector
+    image: gcr.io/google_containers/leader-elector:0.4
+    args:
+    - "--election"
+    - "backlokto"
+    - "--http"
+    - 0.0.0.0:4040
+  - name: operator
+    image: piblokto/backlokto-controller
