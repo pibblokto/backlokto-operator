@@ -1,0 +1,18 @@
+---
+jobs:
+- id: "Test RDS snapshot provider"
+  provider: "aws.rds.snapshot"
+  #access_key: xxxxx
+  #secret_key: xxxxxxxxxxxx
+  spec:
+    rds_region: us-east-1
+    rds_identifier: "mysql-rds-db"
+    rds_snapshot_prefix: "mysql-rds-snapshot"
+- id: "Test RDS cluster snapshot provider"
+  provider: "aws.rds.snapshot.cluster"
+  #access_key: xxxxx
+  #secret_key: xxxxxxxxxxxx
+  spec:
+    rds_region: us-east-1
+    rds_identifier: "postgres-rds-cluster"
+    rds_snapshot_prefix: "postgres-rds-cluster-snapshot"

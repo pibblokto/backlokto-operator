@@ -1,0 +1,17 @@
+---
+jobs:
+- id: "mysql-test-job"
+  provider: "mysql.mysqldump"
+  tags:
+    db: mysql
+    env: red
+  spec:
+    host: localhost
+    port: 3306
+    database: 'backlokto'
+    username: 'backlokto'
+  targets:
+  - type: "s3"
+    s3_bucket_name: "backup-test1-kdsj9238j"
+    s3_bucket_key: "penis"
+    region: us-east-1

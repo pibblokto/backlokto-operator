@@ -1,0 +1,27 @@
+---
+jobs:
+- id: "first_backup"
+  provider: aws.rds.backup
+  spec:
+    rds_arn: "someArn"
+- id: "second_backup"
+  provider: postgres.pg_dump
+  spec:
+    host: localhost
+    port: 5432
+    database: pg
+    username: 'Admin'
+    password: 'secret'
+  targets:
+  - type: "s3"
+    s3_bucket_name: "my-bucket"
+    s3_bucket_key: "prod/backups"
+    region: eu-central-1
+    access_key: xxxxxxxxxx
+    secret_key: xxxxxxxxxx
+  - type: s3
+    s3_bucket_name: "my-bucket"
+    s3_bucket_key: "prod/backups"
+    region: eu-central-1
+    access_key: xxxxxxxxxx
+    secret_key: xxxxxxxxxx
