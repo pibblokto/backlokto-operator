@@ -1,0 +1,19 @@
+apiVersion: backlokto.net/v1
+kind: BackupJob
+metadata:
+  name: postgres-example-backup
+spec:
+  jobId: ""
+  provider: "postgres.pg_dump"
+  jobSpec:
+    host: ""
+    port: ""
+    database: ""
+    username: ""
+    secretName: ""
+  targets:
+  - type: "s3"
+    s3BucketName: ""
+    s3BucketKey: ""
+    region: ""
+    secretName: ""

@@ -1,20 +1,23 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"time"
 )
 
 func main() {
+	podName := os.Getenv("POD_NAME")
+	fmt.Printf("Value of POD_NAME: %s\n", podName)
 	for {
 
-		fmt.Println("Syncing...")
 		resp, err := http.Get("http://localhost:4040")
 		if err != nil {
 			fmt.Println("Error:", err)
-			time.Sleep(5 * time.Second)
+			time.Sleep(10 * time.Second)
 			continue
 		}
 
@@ -25,10 +28,20 @@ func main() {
 			return
 		}
 
-		// Print the content of the response
-		fmt.Println(string(body))
-		resp.Body.Close()
+		var electorResponse map[string]string
+		err = json.Unmarshal(body, &electorResponse)
+		if err != nil {
+			fmt.Println("Error:", err)
+			return
+		}
 
-		time.Sleep(5 * time.Second)
+		fmt.Printf("Value of electorResponse[\"name\"]: %s\n", electorResponse["name"])
+		if podName == electorResponse["name"] {
+			fmt.Println("Syncing...")
+			fmt.Printf("Name of leader: %s\n", electorResponse["name"])
+		}
+		// Print the content of the response
+		resp.Body.Close()
+		time.Sleep(10 * time.Second)
 	}
 }
